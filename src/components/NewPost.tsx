@@ -1,9 +1,10 @@
-// src/components/NewPost.tsx
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const NewPost = () => {
   const [postContent, setPostContent] = useState('');
   const [image, setImage] = useState<File | null>(null);
+  const [message, setMessage] = useState('');
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPostContent(e.target.value);
@@ -15,27 +16,56 @@ const NewPost = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you will handle the submission and use an API call to the backend
-    console.log(postContent);
-    if (image) {
-      console.log(image.name);
+
+    // Retrieve email from local storage
+    const storedUserInfo = localStorage.getItem("userProfile");
+    let userEmail = storedUserInfo ? JSON.parse(storedUserInfo).email : '';
+
+    if (!userEmail) {
+      setMessage("User email not found. Please login again.");
+      return;
     }
-    // TODO: POST request to the backend with the form data
+
+    const formData = new FormData();
+    formData.append('email', userEmail);
+    formData.append('blogText', postContent);
+    if (image) {
+      formData.append('file', image);
+    }
+
+    try {
+      const response = await axios.post('http://127.0.0.1:8080/api/userfeed/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      if (response.data.statusCode === 200) {
+        setMessage("Content Successfully Posted!");
+      } else {
+        setMessage("Something went wrong while uploading content!");
+      }
+    } catch (error) {
+      setMessage("An error occurred while posting the content.");
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <textarea
-        placeholder="What's on your mind?"
-        value={postContent}
-        onChange={handleTextChange}
-        required
-      ></textarea>
-      <input type="file" onChange={handleImageChange} accept="image/*" />
-      <button type="submit">Submit Post</button>
-    </form>
+    <div>
+      {message && <div>{message}</div>}
+      <form onSubmit={handleSubmit}>
+        <textarea
+          placeholder="What's on your mind?"
+          value={postContent}
+          onChange={handleTextChange}
+          required
+        ></textarea>
+        <input type="file" onChange={handleImageChange} accept="image/*" />
+        <button type="submit">Submit Post</button>
+      </form>
+    </div>
   );
 };
 

@@ -1,0 +1,166 @@
+/* App.css */
+.App {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  form {
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 300px;
+    background-color: #f9f9f9;
+  }
+  
+  input[type="email"],
+  input[type="password"],
+  input[type="text"],
+  input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .form-button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #007bff;
+    cursor: pointer;
+    font-size: 16px; /* Customize as needed */
+  }
+  
+  .form-button:hover {
+    background-color: #0056b3;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #007bff;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .toggle-button {
+    background-color: transparent;
+    color: #007bff;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .toggle-button:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  .form-title {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+
+  /* App.css */
+.active-button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #007bff;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .active-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .inactive-button {
+    width: 20%; /* Smaller width for the inactive button */
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    color: #007bff;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .inactive-button:hover {
+    background-color: #e7f3ff;
+  }
+
+  .header {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #f8f9fa; 
+    color: #333; 
+    margin-bottom: 30px; 
+    font-size: 32px; 
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .main-page nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    gap: 10px; /* Space between the links */
+  }
+  
+  .main-page nav li {
+    display: flex;
+  }
+  
+  .main-page nav a {
+    text-decoration: none;
+    color: blue; /* Example text color */
+    font-weight: bold;
+    padding: 10px; /* Padding for clickable area */
+  }
+  
+  /* Add a hover effect for the links */
+  .main-page nav a:hover {
+    text-decoration: underline;
+  }
+  /* Add styles for the textarea and file input */
+form textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    resize: vertical; /* Allows the user to resize the textarea vertically */
+  }
+  
+  form input[type="file"] {
+    margin-bottom: 10px;
+  }
+  

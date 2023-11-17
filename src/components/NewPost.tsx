@@ -3,17 +3,22 @@ import axios from 'axios';
 
 const NewPost = () => {
   const [postContent, setPostContent] = useState('');
-  const [image, setImage] = useState<File | null>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [category, setCategory] = useState('general');
   const [message, setMessage] = useState('');
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPostContent(e.target.value);
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      setImage(e.target.files[0]);
+      setFile(e.target.files[0]);
     }
+  };
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCategory(e.target.value);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -31,9 +36,10 @@ const NewPost = () => {
     const formData = new FormData();
     formData.append('email', userEmail);
     formData.append('blogText', postContent);
-    if (image) {
-      formData.append('file', image);
+    if (file) {
+      formData.append('file', file);
     }
+    formData.append('category', category);
 
     try {
       const response = await axios.post('http://127.0.0.1:8080/api/userfeed/upload', formData, {
@@ -62,7 +68,14 @@ const NewPost = () => {
           onChange={handleTextChange}
           required
         ></textarea>
-        <input type="file" onChange={handleImageChange} accept="image/*" />
+        <input type="file" onChange={handleFileChange} accept="image/*,video/*" />
+        <select value={category} onChange={handleCategoryChange}>
+          <option value="sports">Sports</option>
+          <option value="social">Social</option>
+          <option value="general">General</option>
+          <option value="technology">Technology</option>
+          <option value="entertainment">Entertainment</option>
+        </select>
         <button type="submit">Submit Post</button>
       </form>
     </div>

@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 
 type User = {
   id: string;
-  firstName: string;
-  lastName: string;
+  firstName: string; // changed from firstName
+  lastName: string; // changed from lastName
   dob: string;
   email: string;
 };
@@ -38,8 +38,8 @@ const Profile: React.FC = () => {
     <div className="profile">
       <h1>Profile Information</h1>
       <p>ID: {userInfo.id}</p>
-      <p>First Name: {userInfo.firstName}</p>
-      <p>Last Name: {userInfo.lastName}</p>
+      <p>First Name: {userInfo.firstName}</p> {/* updated from firstName */}
+      <p>Last Name: {userInfo.lastName}</p> {/* updated from lastName */}
       <p>Date of Birth: {formattedDob}</p>
       <p>Email: {userInfo.email}</p>
     </div>

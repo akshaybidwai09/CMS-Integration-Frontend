@@ -1,6 +1,6 @@
-// src/components/Login.tsx
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom'; // Import useHistory
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 type UserLoginData = {
   email: string;
@@ -9,43 +9,66 @@ type UserLoginData = {
 
 const Login: React.FC = () => {
   const [loginData, setLoginData] = useState<UserLoginData>({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
-  const history = useHistory(); // Initialize useHistory
+  const [message, setMessage] = useState("");
+  const history = useHistory();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(loginData);
-    history.push('/main'); // Navigate to the main page
+    setMessage(""); // Clear previous messages
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8080/api/auth/login",
+        loginData
+      );
+      if (response.data.statusCode === 200) {
+        // Store user profile in local storage
+        localStorage.setItem(
+          "userProfile",
+          JSON.stringify(response.data.response)
+        );
+        history.push("/main");
+      } else {
+        setMessage(response.data.error);
+      }
+    } catch (error: any) {
+      setMessage(
+        error.response?.data?.error || "An error occurred during login."
+      );
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        name="email"
-        value={loginData.email}
-        onChange={handleInputChange}
-        placeholder="Email"
-        required
-      />
-      <input
-        type="password"
-        name="password"
-        value={loginData.password}
-        onChange={handleInputChange}
-        placeholder="Password"
-        required
-      />
-      <button className="form-button" type="submit">
-        Login
-      </button>
-    </form>
+    <div>
+      {message && <div>{message}</div>}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          name="email"
+          value={loginData.email}
+          onChange={handleInputChange}
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          value={loginData.password}
+          onChange={handleInputChange}
+          placeholder="Password"
+          required
+        />
+        <button className="form-button" type="submit">
+          Login
+        </button>
+      </form>
+    </div>
   );
 };
 

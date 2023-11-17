@@ -9,10 +9,13 @@ type UserFeedItem = {
     data: string;
   };
   video: boolean;
+  category: string | null;
 };
 
 const Activity = () => {
   const [userFeed, setUserFeed] = useState<UserFeedItem[]>([]);
+  const [categories, setCategories] = useState<string[]>(['All', 'General']);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
@@ -32,10 +35,16 @@ const Activity = () => {
         );
         if (response.data.statusCode === 200) {
           setUserFeed(response.data.response);
+          const uniqueCategories = new Set<string>(
+            response.data.response
+              .map((item: UserFeedItem) => item.category || 'General')
+              .filter((category: string) => category !== 'General') // Filter out 'General'
+          );
+          setCategories(['All', 'General', ...Array.from(uniqueCategories)]);
         } else {
           setError(response.data.error || "Failed to fetch user feed.");
         }
-      } catch (error: any) {
+      } catch {
         setError("No Feed Against User");
       }
     };
@@ -46,25 +55,31 @@ const Activity = () => {
   const renderFile = (item: UserFeedItem) => {
     if (item.video && item.file.data) {
       return (
-        <video 
-          src={`data:video/mp4;base64,${item.file.data}`} 
-          controls 
-          className="user-post-video"
-          style={{ width: '100%', maxHeight: '500px', objectFit: 'contain' }}
+        <video
+          src={`data:video/mp4;base64,${item.file.data}`}
+          controls
+          style={{ width: "100%", maxHeight: "500px", objectFit: "contain" }}
         />
       );
     } else if (!item.video && item.file.data) {
       return (
-        <img 
-          src={`data:image/jpeg;base64,${item.file.data}`} 
-          alt="User Post" 
-          className="user-post-image" 
-          style={{ width: '100%', maxHeight: '500px', objectFit: 'cover' }}
+        <img
+          src={`data:image/jpeg;base64,${item.file.data}`}
+          alt="User Post"
+          style={{ width: "100%", maxHeight: "500px", objectFit: "cover" }}
         />
       );
     }
     return null;
   };
+
+  const toggleCategory = (category: string) => {
+    setSelectedCategory(category === selectedCategory ? 'All' : category);
+  };
+
+  const filteredFeed = selectedCategory === "All"
+    ? userFeed
+    : userFeed.filter(item => item.category === selectedCategory);
 
   if (error) {
     return <div className="error-message">{error}</div>;
@@ -73,9 +88,22 @@ const Activity = () => {
   return (
     <div className="activity">
       <h1>Your Activity</h1>
+      <div className="categories">
+        {categories.map((category, index) => (
+          <button
+            key={index}
+            onClick={() => toggleCategory(category)}
+            className={`category-button ${
+              selectedCategory === category ? "active" : ""
+            }`}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
       <div className="activity-feed">
-        {userFeed.length > 0 ? (
-          userFeed.map((item, index) => (
+        {filteredFeed.length > 0 ? (
+          filteredFeed.map((item, index) => (
             <div key={index} className="activity-item">
               {renderFile(item)}
               <p className="blog-text">{item.blogText}</p>

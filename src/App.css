@@ -261,4 +261,22 @@ form textarea {
   .error-message {
     color: red;
   }
+  .categories {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
   
+  .category-button {
+    font-weight: bold;
+    margin: 0 10px;
+    padding: 5px 15px;
+    border: none;
+    background-color: #150b0b;
+    cursor: pointer;
+  }
+  
+  .category-button.active {
+    background-color: #17701a;
+    font-weight: bold;
+  }

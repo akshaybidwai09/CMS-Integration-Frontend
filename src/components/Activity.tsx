@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import moment from "moment";
 
 type UserFeedItem = {
   blogText: string;
@@ -37,10 +38,10 @@ const Activity = () => {
           setUserFeed(response.data.response);
           const uniqueCategories = new Set<string>(
             response.data.response
-              .map((item: UserFeedItem) => item.category || 'General')
-              .filter((category: string) => category !== 'General') // Filter out 'General'
+              .map((item: UserFeedItem) => item.category || 'general')
+              .filter((category: string) => category !== 'general') // Filter out 'General'
           );
-          setCategories(['All', 'General', ...Array.from(uniqueCategories)]);
+          setCategories(['All', 'general', ...Array.from(uniqueCategories)]);
         } else {
           setError(response.data.error || "Failed to fetch user feed.");
         }
@@ -84,7 +85,9 @@ const Activity = () => {
   if (error) {
     return <div className="error-message">{error}</div>;
   }
-
+  const formatDate = (dateString: string) => {
+    return moment.utc(dateString).format('MM/DD/YYYY');
+  };
   return (
     <div className="activity">
       <h1>Your Activity</h1>
@@ -108,7 +111,7 @@ const Activity = () => {
               {renderFile(item)}
               <p className="blog-text">{item.blogText}</p>
               <p className="date">
-                {new Date(item.uploadedDate).toLocaleDateString()}
+              {formatDate(item.uploadedDate)}
               </p>
             </div>
           ))

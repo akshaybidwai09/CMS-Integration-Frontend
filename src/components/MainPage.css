@@ -16,6 +16,7 @@
     top: 0;
     left: 0;
     height: 100%;
+    
   }
   
   .sidebar ul {
@@ -42,6 +43,8 @@
     grid-template-columns: 1fr; /* Single column layout */
     grid-template-rows: auto 1fr; /* Two rows: auto for header and 1fr for content */
     padding: 20px; /* Adjust based on preference */
+    margin-left: 100px;
+
   }
   
   

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./Profile.css"; // Import the CSS file for Profile
 
 type User = {
   id: string;
@@ -35,13 +36,27 @@ const Profile: React.FC = () => {
   const formattedDob = isValidDate ? dob.toLocaleDateString() : "Invalid Date";
 
   return (
-    <div className="profile">
+    <div className="profile-card">
       <h1>Profile Information</h1>
-      <p>ID: {userInfo.id}</p>
-      <p>First Name: {userInfo.firstName}</p> {/* updated from firstName */}
-      <p>Last Name: {userInfo.lastName}</p> {/* updated from lastName */}
-      <p>Date of Birth: {formattedDob}</p>
-      <p>Email: {userInfo.email}</p>
+      {userInfo && (
+        <>
+          <p>
+            <span>ID:</span> {userInfo.id}
+          </p>
+          <p>
+            <span>First Name:</span> {userInfo.firstName}
+          </p>
+          <p>
+            <span>Last Name:</span> {userInfo.lastName}
+          </p>
+          <p>
+            <span>Date of Birth:</span> {formattedDob}
+          </p>
+          <p>
+            <span>Email:</span> {userInfo.email}
+          </p>
+        </>
+      )}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import moment from "moment";
+import "./Activity.css";
 
 type UserFeedItem = {
   blogText: string;
@@ -15,8 +16,8 @@ type UserFeedItem = {
 
 const Activity = () => {
   const [userFeed, setUserFeed] = useState<UserFeedItem[]>([]);
-  const [categories, setCategories] = useState<string[]>(['All', 'General']);
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [categories, setCategories] = useState<string[]>(["All", "General"]);
+  const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [error, setError] = useState<string>("");
 
   useEffect(() => {
@@ -38,10 +39,10 @@ const Activity = () => {
           setUserFeed(response.data.response);
           const uniqueCategories = new Set<string>(
             response.data.response
-              .map((item: UserFeedItem) => item.category || 'general')
-              .filter((category: string) => category !== 'general') // Filter out 'General'
+              .map((item: UserFeedItem) => item.category || "general")
+              .filter((category: string) => category !== "general") // Filter out 'General'
           );
-          setCategories(['All', 'general', ...Array.from(uniqueCategories)]);
+          setCategories(["All", "general", ...Array.from(uniqueCategories)]);
         } else {
           setError(response.data.error || "Failed to fetch user feed.");
         }
@@ -75,18 +76,19 @@ const Activity = () => {
   };
 
   const toggleCategory = (category: string) => {
-    setSelectedCategory(category === selectedCategory ? 'All' : category);
+    setSelectedCategory(category === selectedCategory ? "All" : category);
   };
 
-  const filteredFeed = selectedCategory === "All"
-    ? userFeed
-    : userFeed.filter(item => item.category === selectedCategory);
+  const filteredFeed =
+    selectedCategory === "All"
+      ? userFeed
+      : userFeed.filter((item) => item.category === selectedCategory);
 
   if (error) {
     return <div className="error-message">{error}</div>;
   }
   const formatDate = (dateString: string) => {
-    return moment.utc(dateString).format('MM/DD/YYYY');
+    return moment.utc(dateString).format("MM/DD/YYYY");
   };
   return (
     <div className="activity">
@@ -110,9 +112,7 @@ const Activity = () => {
             <div key={index} className="activity-item">
               {renderFile(item)}
               <p className="blog-text">{item.blogText}</p>
-              <p className="date">
-              {formatDate(item.uploadedDate)}
-              </p>
+              <p className="date">{formatDate(item.uploadedDate)}</p>
             </div>
           ))
         ) : (

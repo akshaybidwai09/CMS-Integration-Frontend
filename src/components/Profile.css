@@ -1,0 +1,9 @@
+.profile-card {
+    margin: 0 auto; /* Center horizontally */
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    /* The card will naturally size itself based on its content */
+  }
+  

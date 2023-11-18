@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./NewPost.css";
 import axios from "axios";
 
 const NewPost = () => {

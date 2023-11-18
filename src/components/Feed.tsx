@@ -32,7 +32,15 @@ const Feed = () => {
     const data = await response.json();
     console.log("api response", data);
     if (data.statusCode === 200) {
-      setPosts(data.response);
+        if (filterType === "name" && data.response.length > 0) {
+            const name = data.response[0].name;
+            data.response[0].userFeed.forEach((userFeedItem: { userName: any; }) => {
+            userFeedItem.userName = name;
+            });
+            setPosts(data.response[0].userFeed);
+          } else {
+            setPosts(data.response);
+          }
     }
   };
 

@@ -2,66 +2,328 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
 .App {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  form {
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-width: 300px;
+    background-color: #f9f9f9;
+  }
+  
+  input[type="email"],
+  input[type="password"],
+  input[type="text"],
+  input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .form-button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #007bff;
+    cursor: pointer;
+    font-size: 16px; /* Customize as needed */
+  }
+  
+  .form-button:hover {
+    background-color: #0056b3;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #007bff;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  .toggle-button {
+    background-color: transparent;
+    color: #007bff;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+  }
+  
+  .toggle-button:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  .form-title {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+
+  /* App.css */
+.active-button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    background-color: #007bff;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .active-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .inactive-button {
+    width: 20%; /* Smaller width for the inactive button */
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    color: #007bff;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .inactive-button:hover {
+    background-color: #e7f3ff;
+  }
+
+  .header {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #f8f9fa; 
+    color: #333; 
+    margin-bottom: 30px; 
+    font-size: 32px; 
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .main-page nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end; /* Align to the right */
+    gap: 10px; /* Space between the links */
+  }
+  
+  .main-page nav li {
+    display: flex;
+  }
+  
+  .main-page nav a {
+    text-decoration: none;
+    color: blue; /* Example text color */
+    font-weight: bold;
+    padding: 10px; /* Padding for clickable area */
+  }
+  
+  /* Add a hover effect for the links */
+  .main-page nav a:hover {
+    text-decoration: underline;
+  }
+
+  /* Add styles for the textarea and file input */
+form textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    resize: vertical; /* Allows the user to resize the textarea vertically */
+  }
+  
+  form input[type="file"] {
+    margin-bottom: 10px;
+  }
+  
+  .activity {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .activity h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .activity-feed {
+    margin-top: 20px;
+    border-top: 2px solid #eee;
+  }
+  
+  .activity-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .blog-text {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .date {
+    font-size: 0.9em;
+    color: #999;
+  }
+  
+  .no-activity {
+    text-align: center;
+    color: #888;
+  }
+  .user-post-image {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+
+
+  /* 
+   */
+
+   .activity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .activity-feed {
+    width: 100%;
+    max-width: 600px; /* Adjust the width as needed */
+    margin-top: 20px;
+  }
+  
+  .activity-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .user-post-image {
+    width: 100%; /* Full width of the container */
+    height: auto; /* Keep the original aspect ratio */
+    border-radius: 8px;
+    margin-bottom: 10px; /* Space between image and text */
+  }
+  
+  .blog-text {
+    margin-top: 10px;
+    font-size: 1em;
+    color: #333;
+  }
+  
+  .date {
+    margin-top: 5px;
+    font-size: 0.8em;
+    color: #666;
+  }
+  
+  .no-activity {
+    font-size: 1em;
+    color: #666;
+  }
+  
+  .error-message {
+    color: red;
+  }
+  .categories {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .category-button {
+    font-weight: bold;
+    margin: 0 10px;
+    padding: 5px 15px;
+    border: none;
+    background-color: #150b0b;
+    cursor: pointer;
+  }
+  
+  .category-button.active {
+    background-color: #17701a;
+    font-weight: bold;
+  }
+  /* src/app.css */
+.feed {
+  padding: 20px;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar select {
+  margin-right: 10px;
+  width: 10%;
+}
+.search-bar input {
+  margin-right: 10px;
+  width: 35%;
+}
+.search-bar button {
+  margin-right: 10px;
+  width: 10%;
+}
+
+.post {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 35%;
+}
+.feed .posts {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align the children */
-  min-height: 100vh; /* Full viewport height */
-  background-color: #f4f4f4;
- 
-}
-
-.header {
-  width: 100%;
-  background-color: #283593; /* New background color, e.g., a deep purple */
-  color: #ffffff; /* Keeping the text color white for contrast */
-  padding: 20px 0;
-  font-size: 32px; /* Increased font size */
-  font-family: 'Montserrat', sans-serif;
-  text-align: center;
-  border-bottom: 3px solid #7c43bd; /* Border color adjusted to match the new background */
-}
-
-.login-container {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  flex-grow: 1; /* Allows container to fill available space */
 }
 
-.login-form {
-  padding: 40px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  margin: 20px 0; /* Add margin to separate from header/footer */
+.post img {
+  width: 60%;
+  height: auto;
+  margin-top: 10px;
+  
 }
-
-/* Rest of your existing styles for login form, inputs, and buttons */
-
-.inactive-button {
-  background-color: transparent;
-  color: #007bff;
-  padding: 10px 20px;
-  border: 2px solid #007bff;
-  border-radius: 4px;
-  margin: 20px auto; /* Center the button */
-  display: block; /* Make the button a block element */
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 20px;
-}
-
-.inactive-button:hover {
-  background-color: #007bff;
-  color: #fff;
-}
-
-/* Add styles to remove scrollbar if not necessary */
-body, html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+.post video {
+  width: 60%;
+  height: auto;
+  margin-top: 10px;
 }

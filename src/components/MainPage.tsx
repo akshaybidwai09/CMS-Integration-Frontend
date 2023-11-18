@@ -12,6 +12,7 @@ import Profile from "./Profile";
 import Activity from "./Activity";
 import NewPost from "./NewPost"; // Import the NewPost component
 import "./MainPage.css";
+import Feed from "./feed";
 
 const MainPage = () => {
   // const history = useHistory();
@@ -34,6 +35,7 @@ const MainPage = () => {
             <li>
               <Link to="/new-post">New Post</Link>
             </li>
+         <li><Link to="/feed">Feed</Link></li> {/* Add this line */}
           </ul>
         </nav>
 
@@ -51,9 +53,11 @@ const MainPage = () => {
             <Route path="/new-post">
               <NewPost />
             </Route>
+               <Route path="/feed">
+              <Feed />
+            </Route>
           </Switch>
         </div>
-      </div>
     </Router>
   );
 };

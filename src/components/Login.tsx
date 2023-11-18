@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import "./Login.css";
 
 type UserLoginData = {
   email: string;
@@ -46,32 +45,29 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-form">
-        <h2>Login to Your Account</h2>
-        {message && <div className="login-message">{message}</div>}
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            name="email"
-            value={loginData.email}
-            onChange={handleInputChange}
-            placeholder="Email"
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            value={loginData.password}
-            onChange={handleInputChange}
-            placeholder="Password"
-            required
-          />
-          <button type="submit" className="login-button">
-            Login
-          </button>
-        </form>
-      </div>
+    <div>
+      {message && <div>{message}</div>}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          name="email"
+          value={loginData.email}
+          onChange={handleInputChange}
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          value={loginData.password}
+          onChange={handleInputChange}
+          placeholder="Password"
+          required
+        />
+        <button className="form-button" type="submit">
+          Login
+        </button>
+      </form>
     </div>
   );
 };

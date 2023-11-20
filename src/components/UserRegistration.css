@@ -1,11 +1,14 @@
 .registration-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto; /* Changed from min-height */
+  padding: 20px;
+
+  background-color: #f4f4f4;
+  overflow-y: auto;
+  flex-direction: column; /* Add this line */
+}
   .registration-form {
     background: #fff;
     padding: 40px;
@@ -14,6 +17,7 @@
     max-width: 400px;
     width: 100%;
     text-align: center;
+    margin-bottom: 10px;
   }
   
   .registration-form h2 {
@@ -41,6 +45,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    
   }
   
   .registration-form .registration-button:hover {
@@ -51,4 +56,8 @@
     margin-bottom: 20px;
     color: red;
   }
-  
+
+  body, html {
+    padding: 0;
+    margin: 0;
+  }

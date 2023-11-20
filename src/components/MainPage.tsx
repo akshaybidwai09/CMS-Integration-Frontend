@@ -27,16 +27,16 @@ const MainPage = () => {
         <nav className="sidebar">
           <ul>
             <li>
-              <Link to="/activity">Activity</Link>
+              <Link to="/activity">My Posts</Link>
             </li>
             <li>
-              <Link to="/profile">Profile</Link>
+              <Link to="/feed">All Posts</Link>
             </li>
             <li>
-              <Link to="/new-post">New Post</Link>
+              <Link to="/new-post">Create Post</Link>
             </li>
             <li>
-              <Link to="/feed">Feed</Link>
+              <Link to="/profile">My Profile</Link>
             </li>
           </ul>
         </nav>

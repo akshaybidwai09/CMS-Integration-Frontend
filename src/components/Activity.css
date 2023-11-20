@@ -50,6 +50,8 @@
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
+    position: relative;
+    padding-bottom: 40px
   }
   
   .blog-text {
@@ -72,4 +74,58 @@
     margin-left: 100px;
   }
   
+  .post-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: 10px; /* Adjust as needed */
+    width: 100%;
+  }
+  
+  .post-category {
+    color: #808080; /* Grey text color */
+    text-shadow: 
+      1px 1px 0px #fff, /* White shadows to create the hatched effect */
+      -1px -1px 0px #fff, 
+      1px -1px 0px #fff, 
+      -1px 1px 0px #fff;
+    font-size: 0.9em;
+    /* margin-left: 10px; */
+    font-weight: bold;
+  } 
+  
+  .post-info {
+    color: #808080; /* Grey text color */
+    text-shadow: 
+      1px 1px 0px #fff, /* White shadows to create the hatched effect */
+      -1px -1px 0px #fff, 
+      1px -1px 0px #fff, 
+      -1px 1px 0px #fff;
+    font-size: 0.9em;
+    /* margin-left: 10px; */
+    font-weight: bold;
+
+    text-align: right;
+    margin-right: 20px; /* Add some margin to the right */
+  }
+
+  .search-bar {
+    display: flex; /* Use flexbox to align children inline */
+    align-items: center; /* Align items vertically in the center */
+    gap: 10px; /* Space between each item */
+  
+    /* Optional: Add styles to prevent items from shrinking too much */
+    flex-wrap: nowrap;
+  }
+
+  .react-datepicker-wrapper {
+    flex-shrink: 0; /* Prevent the DatePicker from shrinking */
+  }
+
+  .search-bar select,
+.search-bar input {
+  flex-grow: 1; /* Allow these elements to grow to fill available space */
+  margin-right: 10px; /* Space after the select/input */
+}
   

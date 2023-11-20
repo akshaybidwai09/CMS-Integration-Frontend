@@ -87,12 +87,13 @@ const Activity = () => {
   if (error) {
     return <div className="error-message">{error}</div>;
   }
-  const formatDate = (dateString: string) => {
-    return moment.utc(dateString).format("MM/DD/YYYY");
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "short", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
   };
   return (
     <div className="activity">
-      <h1>Your Activity</h1>
+      <h1>Your Posts</h1>
       <div className="categories">
         {categories.map((category, index) => (
           <button
@@ -112,7 +113,13 @@ const Activity = () => {
             <div key={index} className="activity-item">
               {renderFile(item)}
               <p className="blog-text">{item.blogText}</p>
-              <p className="date">{formatDate(item.uploadedDate)}</p>
+
+              <div className="post-footer">
+                <div className="post-category">{item.category}</div>
+                <div className="post-info">
+                  Posted on {formatDate(item.uploadedDate)}
+                </div>
+              </div>
             </div>
           ))
         ) : (

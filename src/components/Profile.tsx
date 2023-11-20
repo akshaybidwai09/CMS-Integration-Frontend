@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Profile.css"; // Import the CSS file for Profile
+import { useHistory } from "react-router-dom";
 
 type User = {
   id: string;
@@ -12,6 +13,7 @@ type User = {
 const Profile: React.FC = () => {
   const [userInfo, setUserInfo] = useState<User | null>(null);
   const [error, setError] = useState<string>("");
+  const history = useHistory();
 
   useEffect(() => {
     const storedUserInfo = localStorage.getItem("userProfile");
@@ -21,6 +23,15 @@ const Profile: React.FC = () => {
       setError("No user information found. Please login again.");
     }
   }, []);
+
+  const handleLogout = () => {
+    // Perform logout logic such as clearing local storage or state
+    // localStorage.removeItem("userProfile"); // Example
+
+    // Redirect to the root path
+    // history.push("/");
+    window.location.href = "/";
+  };
 
   if (error) {
     return <div>{error}</div>;
@@ -34,15 +45,19 @@ const Profile: React.FC = () => {
   const dob = new Date(userInfo.dob);
   const isValidDate = !isNaN(dob.getTime());
   const formattedDob = isValidDate ? dob.toLocaleDateString() : "Invalid Date";
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "short", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
 
   return (
     <div className="profile-card">
       <h1>Profile Information</h1>
       {userInfo && (
         <>
-          <p>
+          {/* <p>
             <span>ID:</span> {userInfo.id}
-          </p>
+          </p> */}
           <p>
             <span>First Name:</span> {userInfo.firstName}
           </p>
@@ -55,6 +70,10 @@ const Profile: React.FC = () => {
           <p>
             <span>Email:</span> {userInfo.email}
           </p>
+          <button onClick={handleLogout} className="logout-button">
+            Logout
+          </button>{" "}
+          {/* Add this line */}
         </>
       )}
     </div>

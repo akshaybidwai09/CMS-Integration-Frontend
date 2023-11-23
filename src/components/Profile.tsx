@@ -45,7 +45,7 @@ const Profile: React.FC = () => {
   const dob = new Date(userInfo.dob);
   const isValidDate = !isNaN(dob.getTime());
   const formattedDob = isValidDate ? dob.toLocaleDateString() : "Invalid Date";
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string | number | Date) => {
     const options = { year: "numeric", month: "short", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };

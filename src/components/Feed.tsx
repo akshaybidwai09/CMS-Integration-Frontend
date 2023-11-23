@@ -1,23 +1,32 @@
-// src/components/Feed.tsx
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Activity.css";
 
+type Feedback = {
+  user: string;
+  comment: string;
+  commentDate: string;
+};
+
 type Post = {
+  id: string;
   userName: string;
+  email: string;
   blogText: string;
   uploadedDate: string;
   file: {
     type: number;
     data: string;
   };
-  video: boolean;
   category: string;
+  feedbacks: Feedback[] | null;
+  video: boolean;
 };
 
 const Feed = () => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [newComment, setNewComment] = useState<string>('');
   const [filterType, setFilterType] = useState("all");
   const [filterText, setFilterText] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
@@ -38,17 +47,55 @@ const Feed = () => {
       }
     );
     const data = await response.json();
-    console.log("api response", data);
     if (data.statusCode === 200) {
-      if (filterType === "name" && data.response.length > 0) {
-        const name = data.response[0].name;
-        data.response[0].userFeed.forEach((userFeedItem: { userName: any }) => {
-          userFeedItem.userName = name;
-        });
-        setPosts(data.response[0].userFeed);
-      } else {
-        setPosts(data.response);
+      setPosts(data.response);
+    }
+  };
+
+  const addComment = async (postEmail: string, postId: string, commentText: string) => {
+    let commentingUserEmail = "";
+    let commentingUserName = "Anonymous"; // Default placeholder name
+  
+    const storedUserInfo = localStorage.getItem("userProfile");
+    if (storedUserInfo) {
+      const userInfo = JSON.parse(storedUserInfo);
+      commentingUserEmail = userInfo.email || "";
+      const firstName = userInfo.firstName || "Anonymous";
+      const lastName = userInfo.lastName || "";
+  
+      // Use the names if they are not empty, else use the placeholder
+      commentingUserName = `${firstName.trim()} ${lastName.trim()}`.trim();
+      if (commentingUserName.trim() === "") {
+        commentingUserName = "Anonymous";
       }
+    } 
+  
+    if (!commentText || commentText.trim() === "") {
+      console.error("Comment text is empty.");
+      return;
+    }
+
+    const response = await fetch(
+      'http://127.0.0.1:8080/api/userfeed/add-comment',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: postEmail, // Email of the post owner
+          postId: postId,
+          comment: {
+            [commentingUserEmail]: commentText, // Comment made by the logged-in user
+          },
+        }),
+      }
+    );
+    
+    const data = await response.json();
+    if (data.statusCode === 200) {
+      await fetchPosts();
+     
     }
   };
 
@@ -73,6 +120,23 @@ const Feed = () => {
     return null;
   };
 
+  const renderFeedbacks = (feedbacks: Feedback[] | null) => {
+    if (!feedbacks || feedbacks.length === 0) {
+      return <div className="feedback-section">No comments yet.</div>;
+    }
+  
+    return (
+      <div className="feedback-section">
+        {feedbacks.map((feedback, index) => (
+          <div key={index} className="feedback">
+            <strong>{feedback.user ? `${feedback.user.firstName} ${feedback.user.lastName}` : "Anonymous"}:</strong> 
+            {feedback.comment}
+            <div className="feedback-date">{formatDate(feedback.commentDate)}</div>
+          </div>
+        ))}
+      </div>
+    );
+  };
   const handleDateChange = (date) => {
     setSelectedDate(date);
     if (date) {
@@ -81,6 +145,7 @@ const Feed = () => {
       setFilterText("");
     }
   };
+
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "short", day: "numeric" };
     const date = new Date(dateString);
@@ -122,7 +187,6 @@ const Feed = () => {
       <div className="activity-feed">
         {posts.map((post, index) => (
           <div key={index} className="activity-item">
-            {/* <h2>{post.userName}</h2> */}
             {renderMedia(post)}
             <p className="blog-text">{post.blogText}</p>
             <div className="post-footer">
@@ -131,8 +195,18 @@ const Feed = () => {
                 Posted by {post.userName} on {formatDate(post.uploadedDate)}
               </div>
             </div>
-          </div>
-        ))}
+             {renderFeedbacks(post.feedbacks)}
+            <div className='add-comment-form'>
+              <input
+                type='text'
+                placeholder='Add a comment...'
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+              />
+              <button onClick={() => addComment(post.email, post.id, newComment)}>Comment</button>
+            </div>
+    </div>
+  ))}
       </div>
     </div>
   );

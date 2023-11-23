@@ -87,7 +87,7 @@ const Activity = () => {
   if (error) {
     return <div className="error-message">{error}</div>;
   }
-  const formatDate = (dateString) => {
+  const formatDate = (dateString: string | number | Date) => {
     const options = { year: "numeric", month: "short", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };

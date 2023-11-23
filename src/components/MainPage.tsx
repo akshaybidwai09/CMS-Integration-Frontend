@@ -11,7 +11,7 @@ import {
 import Profile from "./Profile";
 import Activity from "./Activity";
 import NewPost from "./NewPost";
-import Feed from "./Feed"; // Import Feed
+import Feed from "./feed"; // Import Feed
 import "./MainPage.css";
 
 const MainPage = () => {

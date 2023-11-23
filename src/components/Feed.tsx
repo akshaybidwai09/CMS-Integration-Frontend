@@ -94,6 +94,7 @@ const Feed = () => {
     
     const data = await response.json();
     if (data.statusCode === 200) {
+      setNewComment("");
       await fetchPosts();
      
     }
